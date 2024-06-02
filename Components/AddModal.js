@@ -30,7 +30,7 @@ export default function KeepMountedModal() {
     e.preventDefault();
     try {
       console.log("started posting");
-      const res = await fetch(`https://besthbd.vercel.app/api/hbdRem`, {
+      const res = await fetch(`/api/hbdRem`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
