@@ -2,7 +2,7 @@
 
 function Removebtn({ id }) {
   const deleteTopic = async (id) => {
-    const res = await fetch(`http://localhost:3000/api/hbdRem?id=${id}`, {
+    const res = await fetch(`/api/hbdRem?id=${id}`, {
       method: "DELETE",
     });
     location.reload();

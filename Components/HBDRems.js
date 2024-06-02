@@ -4,7 +4,7 @@ import PersonCard from "./PersonCard";
 import moment from "moment";
 
 async function fetchData(params) {
-  const res = await fetch("http://localhost:3000/api/hbdRem", {
+  const res = await fetch(`/api/hbdRem`, {
     cache: "no-store",
   });
   return res.json();
