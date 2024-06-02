@@ -55,7 +55,7 @@ export default function HBDRemsContent() {
   return (
     <div class="mt-20 p-4 sm:ml-64">
       <div class="grid grid-cols-3 gap-4 mb-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        {sortedData?.map((item) => {
+        {sortedData.map((item) => {
           const Formateddob = moment.utc(item.dob).format("MM/DD/YYYY");
           const daysLeft = daysUntilBirthday(Formateddob);
           return (
