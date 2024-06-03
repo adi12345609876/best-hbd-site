@@ -3,7 +3,6 @@ import Removebtn from "./Removebtn";
 
 function PersonCard({ name, dob, daysLeft, id }) {
   return (
-    
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {/*DropDown */}
       <div className="flex justify-end px-4 pt-4">
@@ -73,7 +72,7 @@ function PersonCard({ name, dob, daysLeft, id }) {
             href="#"
             className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200  dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600"
           >
-            {daysLeft} days to go
+            {daysLeft} to go
           </p>
         </div>
       </div>
