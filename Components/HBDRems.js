@@ -57,7 +57,7 @@ export default function HBDRemsContent() {
       <div class="grid grid-cols-3 gap-4 mb-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         {sortedData.map((item) => {
           const Formateddob = moment.utc(item.dob).format("MM/DD/YYYY");
-          let daysLeft = daysUntilBirthday(Formateddob);
+          let daysLeft = daysUntilBirthday(Formateddob) + 1;
           if (daysLeft >= 30) {
             const monthsLeft = String(Math.floor(daysLeft / 30)) + " months";
             const reminderdays = daysLeft % 30;

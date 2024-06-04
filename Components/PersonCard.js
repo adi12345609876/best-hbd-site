@@ -1,7 +1,9 @@
 import React from "react";
 import Removebtn from "./Removebtn";
-
+import "./AnStyles.css";
 function PersonCard({ name, dob, daysLeft, id }) {
+  const tom = daysLeft == "0 days" ? true : false;
+
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {/*DropDown */}
@@ -69,10 +71,12 @@ function PersonCard({ name, dob, daysLeft, id }) {
         <div className="flex mt-4 md:mt-6">
           <Removebtn id={id} />
           <p
-            href="#"
-            className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200  dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600"
+            className={`animated-background py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200  dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600${
+              tom &&
+              "animated-background bg-gradient-to-r from-fuchsia-500  to-cyan-500 dark:text-slate-900 dark:border-slate-800"
+            }`}
           >
-            {daysLeft} to go
+            {tom ? "Tommorow" : daysLeft + " to go"}
           </p>
         </div>
       </div>
