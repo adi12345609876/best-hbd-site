@@ -11,7 +11,8 @@ async function fetchData(params) {
 }
 function daysUntilBirthday(dob) {
   const today = moment();
-  const birthday = moment(dob, "MM/DD/YYYY").format("MM/DD");
+  const dobupdat = moment(dob, "MM/DD/YYYY").add(1, "days");
+  const birthday = moment(dobupdat, "MM/DD/YYYY").format("MM/DD");
   // Get today's date
 
   // Set the target date to this year's birthday
@@ -31,15 +32,14 @@ const dataPromise = fetchData();
 export default function HBDRemsContent() {
   const dataJson = use(dataPromise);
   const data = dataJson.hbdRems;
-  const today = moment();
+  let today = moment().startOf("day");
 
   //  Sort the array by the days until each person's next birthday
 
   const sortedData = data.sort((a, b) => {
     let nextBirthdayA = moment(a.dob).set("year", today.year());
     let nextBirthdayB = moment(b.dob).set("year", today.year());
-
-    // If the next birthday has passed this year, set it to next year
+    // Adjust for past birthdays (this year)
     if (nextBirthdayA.isBefore(today)) {
       nextBirthdayA.add(1, "year");
     }
@@ -47,17 +47,22 @@ export default function HBDRemsContent() {
       nextBirthdayB.add(1, "year");
     }
 
-    // Compare the days until each person's next birthday
-    return (
-      nextBirthdayA.diff(today, "days") - nextBirthdayB.diff(today, "days")
-    );
+    // Calculate days until next birthdays
+    let daysUntilA = nextBirthdayA.diff(today, "days");
+    let daysUntilB = nextBirthdayB.diff(today, "days");
+
+    // Ensure birthdays on today's date come first
+    if (daysUntilA === 0) return -1;
+    if (daysUntilB === 0) return 1;
+
+    return daysUntilA - daysUntilB;
   });
   return (
     <div class="mt-20 p-4 sm:ml-64">
       <div class="grid grid-cols-3 gap-4 mb-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         {sortedData.map((item) => {
           const Formateddob = moment.utc(item.dob).format("MM/DD/YYYY");
-          let daysLeft = daysUntilBirthday(Formateddob) + 1;
+          let daysLeft = daysUntilBirthday(Formateddob);
           if (daysLeft >= 30) {
             const monthsLeft = String(Math.floor(daysLeft / 30)) + " months";
             const reminderdays = daysLeft % 30;
@@ -68,8 +73,10 @@ export default function HBDRemsContent() {
               daysLeft = monthsLeft;
             }
           } else {
-            daysLeft = String(daysUntilBirthday(Formateddob)) + " days";
+            //within a month
+            daysLeft = String(daysLeft) + " days";
           }
+
           return (
             <PersonCard
               name={item.name}
